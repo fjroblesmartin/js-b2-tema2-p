@@ -2,65 +2,71 @@
 // U1. Herencia
 // Enunciado disponible en u1e1.md / Enunciat disponible a u1e1.md
 
-//Escribe aquí tu solución / escriviu aquí la vostra solució:
+// Escribe aquí tu solución / escriviu aquí la vostra solució:
 
-
+/**
+ * Clase Validator
+ * Clase base para gestionar validaciones de campos.
+ * Student: [Tu Nombre / Gemini]
+ */
 export class Validator {
-  // A. Propiedades privadas (se definen con el prefijo #)
-  #field;
-  #value;
-  #required;
+    // A. Propiedades privadas (Private fields)
+    // En JS moderno usamos '#' para privacidad real.
+    #field;
+    #value;
+    #required;
 
-  // B. Constructor
-  constructor(fieldName = "", value = "") {
-    this.#field = fieldName;
-    this.#value = value;
-    this.#required = false; // Valor por defecto según el enunciado
-  }
-
-  // C. Getters y setters para 'field'
-  get field() {
-    return this.#field;
-  }
-
-  set field(newName) {
-    this.#field = newName;
-  }
-
-  // D. Getters y setters para 'value'
-  get value() {
-    return this.#value;
-  }
-
-  set value(newValue) {
-    this.#value = newValue;
-  }
-
-  // E. Getters y setters para 'required'
-  get required() {
-    return this.#required;
-  }
-
-  set required(status) {
-    this.#required = status;
-  }
-
-  // F. Método isEmpty
-  // Comprueba si el valor es una cadena vacía o nula
-  isEmpty() {
-    return this.#value === "" || this.#value === null || this.#value === undefined;
-  }
-
-  // G. Método isValid
-  // Devuelve true si:
-  // 1. El campo no está vacío.
-  // 2. O si el campo está vacío pero NO es obligatorio.
-  isValid() {
-    if (!this.isEmpty()) {
-      return true;
+    // B. Constructor
+    // Asignamos valores por defecto a los parámetros por si no llegan.
+    constructor(fieldName = "", value = "") {
+        this.#field = fieldName;
+        this.#value = value;
+        this.#required = false; // Por defecto no es obligatorio
     }
-    // Si llegamos aquí es que está vacío, 
-    // por lo que solo es válido si no es requerido.
-    return !this.#required;
-  }
+
+    // C. Getters y Setters para field
+    get field() {
+        return this.#field;
+    }
+
+    set field(newField) {
+        this.#field = newField;
+    }
+
+    // D. Getters y Setters para value
+    get value() {
+        return this.#value;
+    }
+
+    set value(newValue) {
+        this.#value = newValue;
+    }
+
+    // E. Getters y Setters para required
+    get required() {
+        return this.#required;
+    }
+
+    set required(isRequired) {
+        this.#required = isRequired;
+    }
+
+    // F. Método isEmpty
+    // Verifica si el valor es "falsy" en contexto de formulario (vacío, null o undefined)
+    isEmpty() {
+        return this.#value === "" || this.#value === null || this.#value === undefined;
+    }
+
+    // G. Método isValid
+    isValid() {
+        // 1. Si no está vacío, es válido (tenga lo que tenga)
+        if (!this.isEmpty()) {
+            return true;
+        }
+
+        // 2. Si llegamos aquí es que ESTÁ vacío.
+        // Entonces solo es válido si NO es requerido.
+        return !this.#required;
+    }
 }
+
